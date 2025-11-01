@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Emilce Alejandra Mereles</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 40px 40px;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .photo-container {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            border: 5px solid white;
+            overflow: hidden;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .photo-placeholder {
+            font-size: 60px;
+            color: #667eea;
+        }
+
+        .name {
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .location {
+            font-size: 1.2em;
+            opacity: 0.95;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #667eea;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .skill-item {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            padding: 15px 20px;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .skill-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 1.1em;
+        }
+
+        .experience-item, .education-item {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            border-left: 4px solid #764ba2;
+        }
+
+        .item-title {
+            font-size: 1.3em;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .item-subtitle {
+            color: #667eea;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .item-date {
+            color: #666;
+            font-size: 0.9em;
+            margin-bottom: 10px;
+        }
+
+        .item-description {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            padding: 30px 40px;
+            background: #f8f9fa;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+        }
+
+        .btn-whatsapp:hover {
+            background: #20BA5A;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            font-size: 1em;
+        }
+
+        @media (max-width: 768px) {
+            .name {
+                font-size: 1.8em;
+            }
+
+            .buttons-container {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .buttons-container {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="cv-content">
+        <div class="header">
+            <div class="photo-container">
+                <div class="photo-placeholder">👤</div>
+            </div>
+            <h1 class="name">Emilce Alejandra Mereles</h1>
+            <p class="location">📍 Posadas, Misiones, Argentina</p>
+            <p class="subtitle">Profesional del Área Comercial</p>
+            <div class="contact-info">
+                <div class="contact-item">📧 emilce.mereles@email.com</div>
+                <div class="contact-item">📱 +54 9 3764-291441</div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="section">
+                <h2 class="section-title">Perfil Profesional</h2>
+                <p style="line-height: 1.8; color: #555; font-size: 1.05em;">
+                    Profesional orientada a resultados con sólida trayectoria en el área comercial. 
+                    Me caracterizo por mi capacidad de innovación, dinamismo para ejecutar estrategias 
+                    y habilidad para establecer relaciones comerciales duraderas. Poseo determinación 
+                    para alcanzar objetivos ambiciosos, excelentes habilidades interpersonales y 
+                    compromiso con la excelencia en cada proyecto.
+                </p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Competencias Clave</h2>
+                <div class="skills-grid">
+                    <div class="skill-item">
+                        <div class="skill-name">💡 Innovación Estratégica</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">⚡ Ejecución Rápida</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">🎯 Orientación a Resultados</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">🤝 Relaciones Comerciales</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">💪 Liderazgo Proactivo</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">🔄 Flexibilidad Operativa</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">📊 Análisis de Mercado</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">🎨 Soluciones Innovadoras</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">💼 Negociación Efectiva</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">📈 Desarrollo de Negocios</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">🌟 Gestión de Clientes</div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-name">⏱️ Toma de Decisiones Ágil</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Experiencia Profesional</h2>
+                <div class="experience-item">
+                    <div class="item-title">Ejecutiva de Ventas Senior</div>
+                    <div class="item-subtitle">Empresa Comercial</div>
+                    <div class="item-date">2020 - Presente</div>
+                    <div class="item-description">
+                        Gestión integral de cartera de clientes estratégicos, desarrollo de nuevas 
+                        oportunidades de negocio y consecución de objetivos comerciales. Implementación 
+                        de estrategias innovadoras que incrementaron las ventas en un 35%.
+                    </div>
+                </div>
+                <div class="experience-item">
+                    <div class="item-title">Coordinadora Comercial</div>
+                    <div class="item-subtitle">Organización Regional</div>
+                    <div class="item-date">2017 - 2020</div>
+                    <div class="item-description">
+                        Liderazgo de equipo comercial, diseño de estrategias de penetración de mercado 
+                        y supervisión de operaciones comerciales. Desarrollo de relaciones con clientes 
+                        clave y negociación de acuerdos comerciales importantes.
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Formación Académica</h2>
+                <div class="education-item">
+                    <div class="item-title">Licenciatura en Administración de Empresas</div>
+                    <div class="item-subtitle">Universidad Nacional de Misiones</div>
+                    <div class="item-date">2013 - 2017</div>
+                </div>
+                <div class="education-item">
+                    <div class="item-title">Especialización en Marketing Digital</div>
+                    <div class="item-subtitle">Instituto de Capacitación Profesional</div>
+                    <div class="item-date">2019</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Idiomas</h2>
+                <div class="experience-item">
+                    <div class="item-title">Español - Nativo</div>
+                    <div class="item-title">Inglés - Intermedio</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="buttons-container">
+        <a href="https://wa.me/5493764291441?text=Hola%20Emilce,%20vi%20tu%20CV%20y%20me%20gustaría%20contactarte" 
+           class="btn btn-whatsapp" target="_blank">
+            <span>💬</span> Contactar por WhatsApp
+        </a>
+        <button onclick="downloadPDF()" class="btn btn-download">
+            <span>📥</span> Descargar PDF
+        </button>
+    </div>
+
+    <script>
+        function downloadPDF() {
+            const element = document.getElementById('cv-content');
+            const opt = {
+                margin: 0,
+                filename: 'CV_Emilce_Mereles.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { 
+                    scale: 2,
+                    useCORS: true,
+                    letterRendering: true
+                },
+                jsPDF: { 
+                    unit: 'mm', 
+                    format: 'a4', 
+                    orientation: 'portrait' 
+                }
+            };
+            
+            html2pdf().set(opt).from(element).save();
+        }
+
+        // Detectar si hay una imagen subida (para personalizar después)
+        window.addEventListener('load', function() {
+            const photoInput = document.createElement('input');
+            photoInput.type = 'file';
+            photoInput.accept = 'image/*';
+            photoInput.style.display = 'none';
+            photoInput.id = 'photo-upload';
+            
+            photoInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(event) {
+                        const photoContainer = document.querySelector('.photo-container');
+                        photoContainer.innerHTML = `<img src="${event.target.result}" alt="Foto de perfil">`;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+            
+            document.body.appendChild(photoInput);
+            
+            // Click en el placeholder para subir foto
+            document.querySelector('.photo-container').addEventListener('click', function() {
+                document.getElementById('photo-upload').click();
+            });
+        });
+    </script>
+</body>
+</html>
